@@ -632,8 +632,8 @@ body.expanded footer {
     position: relative;
     width: 100%;
     max-width: 780px;
-    max-height: 92vh;
-    overflow-y: auto;
+    max-height: calc(100vh - 30px);
+    overflow: hidden;
     background: var(--card-bg);
     border-radius: 20px;
     padding: 0 0 32px;
@@ -681,7 +681,7 @@ body.expanded footer {
 
 .modal-header-banner {
     position: relative;
-    padding: 30px 32px 22px;
+    padding: 20px 32px 16px;
     background:
         radial-gradient(circle at 12% 0%, var(--platform-color-soft), transparent 55%),
         linear-gradient(180deg, #fbfcfb 0%, #ffffff 100%);
@@ -704,7 +704,7 @@ body.expanded footer {
 }
 
 .chart-modal-body {
-    padding: 26px 32px 0;
+    padding: 18px 32px 0;
 }
 
 .modal-header {
@@ -864,7 +864,7 @@ body.expanded footer {
 }
 
 .chart-wrapper {
-    height: 290px;
+    height: 240px;
     position: relative;
 }
 
@@ -907,7 +907,7 @@ body.expanded footer {
 /* STATS */
 
 .chart-stats {
-    margin: 22px 0 26px;
+    margin: 14px 0 16px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
@@ -918,7 +918,7 @@ body.expanded footer {
     background: #fafafa;
     border: 1px solid #f0f0f0;
     border-radius: 14px;
-    padding: 16px 14px;
+    padding: 12px 14px;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -987,8 +987,50 @@ body.expanded footer {
     color: #6c757d;
 }
 
-.stat-average { color: #6c757d; }
-.stat-average i { background: linear-gradient(135deg, #8a929a, #6c757d); }
+.stat-average {
+    color: var(--platform-color);
+}
+
+.stat-average i {
+    background: linear-gradient(
+        135deg,
+        var(--platform-color),
+        var(--platform-color)
+    );
+}
+
+.stat-account {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    flex: 1;
+}
+
+.stat-account label {
+    font-size: 9.5px;
+    color: #999;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+    margin-bottom: 4px;
+}
+
+.stat-account select {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-dark);
+    cursor: pointer;
+    padding: 0;
+    max-width: 100%;
+}
+
+.stat-account select:focus {
+    outline: none;
+}
 
 .stat-highest { color: #f5a623; }
 .stat-highest i { background: linear-gradient(135deg, #ffc861, #f5a623); }
@@ -1012,22 +1054,21 @@ body.expanded footer {
 /* Warna khas platform saat modal terbuka */
 
 .chart-modal.platform-instagram {
-    --platform-color: var(--ig-color);
-    --platform-color-soft: rgba(214, 36, 159, .18);
-}
+    --platform-color: #218838;
+    --platform-color-soft: rgba(33, 136, 56, 0.18);
 
 .chart-modal.platform-instagram .modal-icon {
     background: linear-gradient(135deg, #f9ce34, var(--ig-color) 45%, #4f5bd5 100%);
 }
 
 .chart-modal.platform-facebook {
-    --platform-color: var(--fb-color);
-    --platform-color-soft: rgba(24, 119, 242, .18);
+    --platform-color: #218838;
+    --platform-color-soft: rgba(33, 136, 56, 0.18);
 }
 
 .chart-modal.platform-tiktok {
-    --platform-color: var(--tt-color);
-    --platform-color-soft: rgba(37, 244, 238, .25);
+    --platform-color: #218838;
+    --platform-color-soft: rgba(33, 136, 56, 0.18);
 }
 
 .chart-modal.platform-tiktok .modal-icon {
@@ -1035,8 +1076,8 @@ body.expanded footer {
 }
 
 .chart-modal.platform-youtube {
-    --platform-color: var(--yt-color);
-    --platform-color-soft: rgba(255, 0, 0, .18);
+    --platform-color: #218838;
+    --platform-color-soft: rgba(33, 136, 56, 0.18);
 }
 
 @media (max-width: 600px) {
@@ -1069,4 +1110,5 @@ body.expanded footer {
         height: 44px;
         font-size: 18px;
     }
+}
 }
