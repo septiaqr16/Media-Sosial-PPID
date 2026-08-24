@@ -26,12 +26,9 @@ $stmt = $pdo->prepare("
     SELECT
         UPPER(platform) AS platform,
         SUM(jumlah_konten) AS total
-
     FROM konten_sosmed
-
     WHERE tahun = ?
-
-    GROUP BY platform
+    GROUP BY UPPER(platform)
 
 ");
 
@@ -194,97 +191,67 @@ $platformMeta = [
             class="hero-bg-img"
         >
 
-
         <!-- Dark Shape overlay -->
 
         <div class="hero-dark-shape">
-
             <div class="dot-pattern"></div>
-
         </div>
 
 
         <!-- Content -->
 
         <div class="hero-content">
-
             <div class="text-content">
-
                 <h1>
-
                     MEDIA
-
                     <span class="highlight">
                         SOSIAL
                     </span>
-
                 </h1>
 
 
                 <h2>
-
                     Pemerintah Daerah
-
                     <br>
-
                     Kabupaten Probolinggo
-
                 </h2>
 
-
                 <p>
-
                     Dapatkan informasi terbaru,
                     transparan, dan terpercaya
                     melalui kanal media sosial
                     resmi kami.
-
                 </p>
-
 
                 <button
                     type="button"
                     class="btn-jelajahi"
                     id="btnJelajahi"
                 >
-
                     Jelajahi Informasi
-
                     <i class="fas fa-arrow-right"></i>
-
                 </button>
-
             </div>
-
         </div>
-
     </main>
-
 
 
     <!-- Bottom Content -->
 
     <div class="bottom-content">
 
-
         <!-- Platforms Section -->
 
         <section class="platforms-section">
 
-
             <div class="section-header">
-
                 <span class="subtitle">
-
                     PLATFORM KAMI
-
                 </span>
 
 
                 <h2>
-
                     Kunjungi Kami di Berbagai Platform
-
                 </h2>
 
                 <p class="section-sub">
@@ -330,13 +297,9 @@ $platformMeta = [
                                 type="button"
                                 class="btn-visit btn-grafik"
                             >
-
                                 Lihat Grafik
-
                                 <i class="fas fa-chart-line"></i>
-
                             </button>
-
 
                             <a
                                 href="<?= htmlspecialchars($meta['url']) ?>"
@@ -344,75 +307,46 @@ $platformMeta = [
                                 target="_blank"
                                 rel="noopener"
                             >
-
                                 Kunjungi
-
                                 <i class="fas fa-external-link-alt"></i>
-
                             </a>
-
                         </div>
-
                     </div>
-
                 </div>
-
                 <?php endforeach; ?>
-
             </div>
 
         </section>
-
-
 
         <!-- Footer -->
 
         <footer>
 
-
             <div class="footer-dots"></div>
-
 
             <div class="footer-container">
 
-
                 <div class="footer-col brand-col">
 
-
                     <div class="footer-logo">
-
-
                         <img
                             src="assets/logo-pemkab5.png"
                             alt="Logo"
                         >
 
-
                         <div class="footer-logo-text">
-
                             PEMERINTAH DAERAH
-
                             <br>
-
                             KABUPATEN PROBOLINGGO
-
                         </div>
-
-
                     </div>
 
-
                     <p class="address">
-
                         Jl. Panglima Sudirman No. 59
-
                         <br>
-
                         Kraksaan, Probolinggo,
                         Jawa Timur
-
                     </p>
-
 
                 </div>
 
@@ -448,91 +382,62 @@ $platformMeta = [
 
                         </li>
 
-
                         <li>
-
                             <i class="fas fa-globe"></i>
-
                             www.probolinggokab.go.id
-
                         </li>
 
-
                     </ul>
-
 
                 </div>
 
 
-
                 <div class="footer-col social-col">
 
-
                     <h4>
-
                         Ikuti Kami
-
                     </h4>
 
-
                     <div class="social-icons">
-
-
                         <a
                             href="https://www.instagram.com/pemkab_probolinggo?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
                             target="_blank"
                             rel="noopener"
                         >
-
                             <i class="fab fa-instagram"></i>
-
                         </a>
-
 
                         <a
                             href="https://www.facebook.com/Infokabprobolinggo"
                             target="_blank"
                             rel="noopener"
                         >
-
                             <i class="fab fa-facebook-f"></i>
-
                         </a>
-
 
                         <a
                             href="https://www.tiktok.com/@diskominfokabprobolinggo?is_from_webapp=1&sender_device=pc"
                             target="_blank"
                             rel="noopener"
                         >
-
                             <i class="fab fa-tiktok"></i>
-
                         </a>
-
 
                         <a
                             href="https://www.youtube.com/@infokabupatenprobolinggo606"
                             target="_blank"
                             rel="noopener"
                         >
-
                             <i class="fab fa-youtube"></i>
-
                         </a>
-
 
                     </div>
 
-
                 </div>
-
 
             </div>
 
-
         </footer>
-
 
     </div>
 
@@ -545,25 +450,19 @@ $platformMeta = [
         class="chart-modal"
         id="chartModal"
     >
-
         <div class="chart-modal-content">
-
             <button
                 type="button"
                 class="close-modal"
                 id="closeModal"
                 aria-label="Tutup"
             >
-
                 &times;
-
             </button>
 
 
             <div class="modal-header-banner">
-
                 <div class="modal-header">
-
                     <div
                         class="modal-icon"
                         id="modalIcon"
@@ -661,15 +560,15 @@ $platformMeta = [
 
                 <div class="stat-card stat-total">
                     <i class="fas fa-database"></i>
+
                     <div>
                         <strong id="chartTotal">0</strong>
                         <span>Total Konten</span>
                     </div>
-                    <span class="stat-growth" id="chartGrowth"></span>
                 </div>
 
                 <div class="stat-card stat-average">
-                    <i class="fas fa-chart-simple"></i>
+                    <i class="fas fa-calculator"></i>
                     <div>
                         <strong id="chartAverage">0</strong>
                         <span>Rata-rata / Bulan</span>
@@ -677,10 +576,15 @@ $platformMeta = [
                 </div>
 
                 <div class="stat-card stat-highest">
-                    <i class="fas fa-trophy"></i>
-                    <div>
-                        <strong id="chartHighest">-</strong>
-                        <span id="chartHighestLabel">Bulan Tertinggi</span>
+                    <i class="fas fa-user"></i>
+
+                    <div class="stat-account">
+                        <label for="accountSelect">Username Akun</label>
+
+                        <select id="accountSelect">
+                            <option value="@pemkab_probolinggo">
+                            </option>
+                        </select>
                     </div>
                 </div>
 

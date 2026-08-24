@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     /* =========================================================
-       TOMBOL "JELAJAHI INFORMASI" (animasi hero -> desain baru)
+       TOMBOL "JELAJAHI INFORMASI"
     ========================================================= */
 
     const btnJelajahi = document.querySelector('.btn-jelajahi');
@@ -25,8 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const chartDescription = document.getElementById('chartDescription');
     const chartTotal = document.getElementById('chartTotal');
     const chartAverage = document.getElementById('chartAverage');
-    const chartHighest = document.getElementById('chartHighest');
-    const chartHighestLabel = document.getElementById('chartHighestLabel');
+    const accountSelect = document.getElementById('accountSelect');
     const canvas = document.getElementById('contentChart');
     const chartLoading = document.getElementById('chartLoading');
     const modalIcon = document.getElementById('modalIcon');
@@ -44,29 +43,29 @@ document.addEventListener('DOMContentLoaded', function () {
             label: 'Instagram',
             icon: 'fab fa-instagram',
             cssClass: 'platform-instagram',
-            solid: '#d6249f',
-            gradient: ['#f9ce34', '#d6249f', '#4f5bd5']
+            solid: '#218838',
+            gradient: ['#72e172', '#075719']
         },
         FACEBOOK: {
             label: 'Facebook',
             icon: 'fab fa-facebook-f',
             cssClass: 'platform-facebook',
-            solid: '#1877f2',
-            gradient: ['#4da3ff', '#1877f2']
+            solid: '#218838',
+            gradient: ['#72e172', '#075719']
         },
         TIKTOK: {
             label: 'TikTok',
             icon: 'fab fa-tiktok',
             cssClass: 'platform-tiktok',
-            solid: '#010101',
-            gradient: ['#25f4ee', '#010101']
+            solid: '#218838',
+            gradient: ['#72e172', '#075719']
         },
         YOUTUBE: {
             label: 'YouTube',
             icon: 'fab fa-youtube',
             cssClass: 'platform-youtube',
-            solid: '#ff0000',
-            gradient: ['#ff5f5f', '#ff0000']
+            solid: '#218838',
+            gradient: ['#72e172', '#075719']
         }
     };
 
@@ -77,7 +76,6 @@ document.addEventListener('DOMContentLoaded', function () {
             card.addEventListener('click', function (event) {
 
                 // Link "Kunjungi" tetap membuka halaman sosmed aslinya,
-                // tidak memicu modal grafik.
                 if (event.target.closest('.btn-kunjungi')) {
                     return;
                 }
@@ -89,6 +87,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 applyPlatformTheme(currentPlatform);
 
                 modal.classList.add('show');
+
+                loadAccountUsername(currentPlatform);
 
                 loadChart(currentPlatform, yearSelect.value);
 
@@ -102,6 +102,38 @@ document.addEventListener('DOMContentLoaded', function () {
                     loadChart(currentPlatform, this.value);
                 }
             });
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | PILIH AKUN
+        |--------------------------------------------------------------------------
+        */
+
+        if (accountSelect) {
+
+            accountSelect.addEventListener(
+                'change',
+                function () {
+
+                    if (!currentPlatform) {
+                        return;
+                    }
+
+
+                    const accountId =
+                        this.value;
+
+
+                    loadChart(
+                        currentPlatform,
+                        yearSelect.value,
+                        accountId
+                    );
+
+                }
+            );
+
         }
 
         if (chartTypeToggle) {
@@ -164,91 +196,417 @@ document.addEventListener('DOMContentLoaded', function () {
         return gradient;
     }
 
-    async function loadChart(platform, year) {
+    async function loadAccountUsername(platform) {
 
-        const meta = PLATFORM_META[platform] || PLATFORM_META.INSTAGRAM;
+    if (!accountSelect) {
+        return;
+    }
 
-        if (chartLoading) chartLoading.classList.add('show');
 
-        try {
+    /*
+    |--------------------------------------------------------------------------
+    | TAMPILKAN LOADING
+    |--------------------------------------------------------------------------
+    */
 
-            const [response, prevResponse] = await Promise.all([
+    accountSelect.innerHTML = '';
 
-                fetch(`api/data.php?platform=${encodeURIComponent(platform)}&tahun=${encodeURIComponent(year)}`),
+    const loadingOption =
+        document.createElement('option');
 
-                fetch(`api/data.php?platform=${encodeURIComponent(platform)}&tahun=${encodeURIComponent(parseInt(year, 10) - 1)}`)
+    loadingOption.value = '';
+    loadingOption.textContent =
+        'Memuat akun...';
 
-            ]);
+    loadingOption.disabled = true;
+    loadingOption.selected = true;
 
-            if (!response.ok) {
-                throw new Error('Gagal mengambil data.');
-            }
+    accountSelect.appendChild(
+        loadingOption
+    );
 
-            const result = await response.json();
 
-            if (!result.success) {
-                throw new Error(result.message);
-            }
+    try {
 
-            let prevTotal = null;
+        const response = await fetch(
+            `api/akun.php?platform=${encodeURIComponent(platform)}`
+        );
 
-            if (prevResponse.ok) {
-                const prevResult = await prevResponse.json();
-                if (prevResult.success) {
-                    prevTotal = prevResult.total;
-                }
-            }
 
-            chartTitle.textContent = `Jumlah Konten ${meta.label}`;
-            chartDescription.textContent = `Statistik jumlah konten ${meta.label} per bulan tahun ${year}.`;
+        if (!response.ok) {
 
-            lastResult = result;
+            throw new Error(
+                `HTTP ${response.status}`
+            );
 
-            renderChart(platform, result);
-            renderGrowthBadge(result.total, prevTotal, year);
-
-        } catch (error) {
-            console.error(error);
-            alert('Data grafik gagal dimuat.');
-        } finally {
-            if (chartLoading) chartLoading.classList.remove('show');
         }
+
+
+        const result =
+            await response.json();
+
+
+        if (!result.success) {
+
+            throw new Error(
+                result.message ||
+                'Data akun tidak ditemukan.'
+            );
+
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | KOSONGKAN DROPDOWN
+        |--------------------------------------------------------------------------
+        */
+
+        accountSelect.innerHTML = '';
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | OPTION SEMUA AKUN
+        |--------------------------------------------------------------------------
+        */
+
+        const allOption =
+            document.createElement('option');
+
+        allOption.value = '';
+
+        allOption.textContent =
+            'Semua Akun';
+
+        allOption.selected = true;
+
+        accountSelect.appendChild(
+            allOption
+        );
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | JIKA TIDAK ADA AKUN
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            !Array.isArray(result.data) ||
+            result.data.length === 0
+        ) {
+
+            const emptyOption =
+                document.createElement('option');
+
+            emptyOption.value = '';
+
+            emptyOption.textContent =
+                'Belum ada akun';
+
+            emptyOption.disabled = true;
+
+            accountSelect.appendChild(
+                emptyOption
+            );
+
+            return;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | MASUKKAN DATA AKUN
+        |--------------------------------------------------------------------------
+        */
+
+        result.data.forEach(
+            function (account) {
+
+                const option =
+                    document.createElement('option');
+
+
+                option.value =
+                    account.id;
+
+
+                option.textContent =
+                    account.username;
+
+
+                option.dataset.username =
+                    account.username;
+
+
+                accountSelect.appendChild(
+                    option
+                );
+
+            }
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            'Gagal memuat username:',
+            error
+        );
+
+
+        accountSelect.innerHTML = '';
+
+
+        const errorOption =
+            document.createElement('option');
+
+
+        errorOption.value = '';
+
+        errorOption.textContent =
+            'Gagal memuat akun';
+
+        errorOption.disabled = true;
+
+        errorOption.selected = true;
+
+
+        accountSelect.appendChild(
+            errorOption
+        );
 
     }
 
-    function renderGrowthBadge(total, prevTotal, year) {
+}
 
-        const badge = document.getElementById('chartGrowth');
+    async function loadChart(
+        platform,
+        year,
+        accountId = ''
+    ) {
 
-        if (!badge) return;
+        const meta =
+            PLATFORM_META[platform] ||
+            PLATFORM_META.INSTAGRAM;
 
-        const prevYear = parseInt(year, 10) - 1;
 
-        if (prevTotal === null || prevTotal === 0) {
-
-            if (total > 0) {
-                badge.className = 'stat-growth up';
-                badge.innerHTML = '<i class="fas fa-star"></i> Data baru';
-            } else {
-                badge.className = 'stat-growth flat';
-                badge.innerHTML = `<i class="fas fa-minus"></i> vs ${prevYear}`;
-            }
-
-            return;
-
+        if (chartLoading) {
+            chartLoading.classList.add('show');
         }
 
-        const change = Math.round(((total - prevTotal) / prevTotal) * 100);
 
-        if (change > 0) {
-            badge.className = 'stat-growth up';
-            badge.innerHTML = `<i class="fas fa-arrow-up"></i> ${change}% vs ${prevYear}`;
-        } else if (change < 0) {
-            badge.className = 'stat-growth down';
-            badge.innerHTML = `<i class="fas fa-arrow-down"></i> ${Math.abs(change)}% vs ${prevYear}`;
-        } else {
-            badge.className = 'stat-growth flat';
-            badge.innerHTML = `<i class="fas fa-equals"></i> Setara ${prevYear}`;
+        try {
+
+            /*
+            |--------------------------------------------------------------------------
+            | PARAMETER DATA
+            |--------------------------------------------------------------------------
+            */
+
+            const params = new URLSearchParams();
+
+            params.set(
+                'platform',
+                platform
+            );
+
+            params.set(
+                'tahun',
+                year
+            );
+
+
+            if (accountId !== '') {
+
+                params.set(
+                    'akun_id',
+                    accountId
+                );
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | PARAMETER TAHUN SEBELUMNYA
+            |--------------------------------------------------------------------------
+            */
+
+            const previousParams =
+                new URLSearchParams();
+
+            previousParams.set(
+                'platform',
+                platform
+            );
+
+            previousParams.set(
+                'tahun',
+                parseInt(year, 10) - 1
+            );
+
+
+            if (accountId !== '') {
+
+                previousParams.set(
+                    'akun_id',
+                    accountId
+                );
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | REQUEST
+            |--------------------------------------------------------------------------
+            */
+
+            const [
+                response,
+                prevResponse
+            ] = await Promise.all([
+
+                fetch(
+                    `api/data.php?${params.toString()}`
+                ),
+
+                fetch(
+                    `api/data.php?${previousParams.toString()}`
+                )
+
+            ]);
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    'Gagal mengambil data grafik.'
+                );
+
+            }
+
+
+            const result =
+                await response.json();
+
+
+            if (!result.success) {
+
+                throw new Error(
+                    result.message ||
+                    'Data grafik tidak tersedia.'
+                );
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | DATA TAHUN SEBELUMNYA
+            |--------------------------------------------------------------------------
+            */
+
+            let prevTotal = null;
+
+
+            if (prevResponse.ok) {
+
+                const prevResult =
+                    await prevResponse.json();
+
+
+                if (prevResult.success) {
+
+                    prevTotal =
+                        Number(
+                            prevResult.total || 0
+                        );
+
+                }
+
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | JUDUL
+            |--------------------------------------------------------------------------
+            */
+
+            chartTitle.textContent =
+                `Jumlah Konten ${meta.label}`;
+
+
+            const selectedOption =
+                accountSelect
+                    ? accountSelect.options[
+                        accountSelect.selectedIndex
+                    ]
+                    : null;
+
+
+            const selectedUsername =
+                selectedOption &&
+                selectedOption.value !== ''
+                    ? selectedOption.textContent
+                    : 'Semua Akun';
+
+
+            chartDescription.textContent =
+                `Statistik jumlah konten ${meta.label} - ${selectedUsername} per bulan tahun ${year}.`;
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | SIMPAN HASIL
+            |--------------------------------------------------------------------------
+            */
+
+            lastResult =
+                result;
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | RENDER
+            |--------------------------------------------------------------------------
+            */
+
+            renderChart(platform, result);
+
+
+        } catch (error) {
+
+            console.error(
+                'Gagal memuat grafik:',
+                error
+            );
+
+
+            if (chartTotal) {
+                chartTotal.textContent = '0';
+            }
+
+
+            if (chartAverage) {
+                chartAverage.textContent = '0';
+            }
+
+
+            alert(
+                'Data grafik gagal dimuat.'
+            );
+
+
+        } finally {
+
+            if (chartLoading) {
+                chartLoading.classList.remove('show');
+            }
+
         }
 
     }
@@ -261,24 +619,10 @@ document.addEventListener('DOMContentLoaded', function () {
         const values = result.data.map(item => item.jumlah);
 
         const total = result.total;
-        const monthsWithData = values.filter(v => v > 0).length || 12;
         const average = Math.round(total / 12);
-
-        let highestIndex = 0;
-        values.forEach(function (v, i) {
-            if (v > values[highestIndex]) highestIndex = i;
-        });
 
         chartTotal.textContent = new Intl.NumberFormat('id-ID').format(total);
         chartAverage.textContent = new Intl.NumberFormat('id-ID').format(average);
-
-        if (total > 0) {
-            chartHighest.textContent = result.data[highestIndex].bulan;
-            chartHighestLabel.textContent = `Bulan Tertinggi (${new Intl.NumberFormat('id-ID').format(values[highestIndex])})`;
-        } else {
-            chartHighest.textContent = '-';
-            chartHighestLabel.textContent = 'Bulan Tertinggi';
-        }
 
         if (chartInstance) {
             chartInstance.destroy();
