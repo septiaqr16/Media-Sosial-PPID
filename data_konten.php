@@ -456,6 +456,18 @@ $totalContentRows =
 
         </a>
 
+        
+         <a
+            href="data_akun.php"
+            class="nav-link"
+        >
+
+            <i class="fas fa-id-card"></i>
+
+            Data Akun
+
+        </a>
+
     </nav>
 
 

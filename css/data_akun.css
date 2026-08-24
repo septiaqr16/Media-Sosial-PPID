@@ -1,0 +1,1217 @@
+/* =========================================================
+   DATA AKUN MEDIA SOSIAL
+   STYLE DISESUAIKAN DENGAN DATA FOLLOWER
+========================================================= */
+
+
+/* =========================================================
+   PANEL HEADER
+========================================================= */
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.panel-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.panel-header-icon {
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 12px;
+
+    background: rgba(33, 136, 56, .08);
+    color: var(--primary-green, #218838);
+
+    font-size: 17px;
+}
+
+.panel-header-left > div:last-child {
+    min-width: 0;
+}
+
+.panel-header span {
+    display: block;
+
+    margin-bottom: 3px;
+
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .7px;
+
+    color: #929a96;
+}
+
+.panel-header h2 {
+    margin: 0 0 4px;
+
+    color: var(--text-dark, #222);
+
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.panel-desc {
+    margin: 0;
+
+    color: #888;
+
+    font-size: 11.5px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   BUTTON TAMBAH AKUN
+========================================================= */
+
+.btn-add-data {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    margin-left: auto;
+
+    padding: 10px 18px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #218838;
+    color: #ffffff;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+        background .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.btn-add-data:hover {
+    background: #1e7e34;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 7px 16px rgba(33, 136, 56, .20);
+}
+
+.btn-add-data:active {
+    transform: translateY(0);
+}
+
+.btn-add-data i {
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   FILTER BAR
+========================================================= */
+
+.content-filter-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 14px;
+
+    width: 100%;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   FILTER PLATFORM
+========================================================= */
+
+.platform-filter {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   FILTER BUTTON
+========================================================= */
+
+.filter-tab {
+    height: 34px;
+
+    padding: 0 13px;
+    margin-bottom: 0;
+
+    border: 1px solid #e0e4e2;
+    border-radius: 18px;
+
+    background: #ffffff;
+    color: #4d5552;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    transition:
+        background-color .2s ease,
+        color .2s ease,
+        border-color .2s ease,
+        box-shadow .2s ease,
+        transform .2s ease;
+}
+
+.filter-tab:hover {
+    border-color: #bfc8c4;
+
+    background: #f8faf9;
+
+    transform: translateY(-1px);
+}
+
+.filter-tab i {
+    margin-right: 6px;
+
+    font-size: 10px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* =========================================================
+   FILTER COUNT
+========================================================= */
+
+.filter-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 20px;
+    height: 18px;
+
+    margin-left: 7px;
+    padding: 0 5px;
+
+    border-radius: 10px;
+
+    background: #f0f2f1;
+    color: #7a8380;
+
+    font-size: 9px;
+    font-weight: 600;
+
+    line-height: 1;
+}
+
+
+/* =========================================================
+   FILTER ACTIVE DEFAULT
+========================================================= */
+
+.filter-tab.active {
+    color: #ffffff;
+
+    border-color: #1ca44c;
+
+    background: linear-gradient(
+        135deg,
+        #20a84f,
+        #168c3f
+    );
+
+    box-shadow:
+        0 5px 12px rgba(22, 140, 63, .20);
+}
+
+.filter-tab.active .filter-count {
+    background: rgba(255, 255, 255, .20);
+    color: #ffffff;
+}
+
+
+/* =========================================================
+   PLATFORM FILTER ACTIVE COLORS
+========================================================= */
+
+/* INSTAGRAM */
+
+.filter-tab-instagram.active {
+    border-color: transparent;
+
+    background: linear-gradient(
+        135deg,
+        #f58529,
+        #dd2a7b,
+        #8134af
+    );
+
+    box-shadow:
+        0 5px 14px rgba(221, 42, 123, .25);
+}
+
+
+/* FACEBOOK */
+
+.filter-tab-facebook.active {
+    border-color: transparent;
+
+    background: #1877f2;
+
+    box-shadow:
+        0 5px 14px rgba(24, 119, 242, .22);
+}
+
+
+/* TIKTOK */
+
+.filter-tab-tiktok.active {
+    border-color: transparent;
+
+    background: #111111;
+
+    box-shadow:
+        0 5px 14px rgba(17, 17, 17, .20);
+}
+
+
+/* YOUTUBE */
+
+.filter-tab-youtube.active {
+    border-color: transparent;
+
+    background: #ff0000;
+
+    box-shadow:
+        0 5px 14px rgba(255, 0, 0, .20);
+}
+
+
+/* =========================================================
+   SEARCH DATA AKUN
+========================================================= */
+
+.table-search-container {
+    position: relative;
+
+    flex-shrink: 0;
+
+    width: 260px;
+}
+
+.table-search-container > i {
+    position: absolute;
+
+    top: 50%;
+    left: 13px;
+
+    transform: translateY(-50%);
+
+    color: #9aa19e;
+
+    font-size: 11px;
+
+    pointer-events: none;
+}
+
+.table-search-container input {
+    width: 100%;
+    height: 34px;
+
+    padding: 0 13px 0 35px;
+
+    border: 1px solid #e0e4e2;
+    border-radius: 18px;
+
+    background: #ffffff;
+    color: #4d5552;
+
+    outline: none;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+
+    box-sizing: border-box;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background-color .2s ease;
+}
+
+.table-search-container input::placeholder {
+    color: #a7adaa;
+}
+
+.table-search-container input:hover {
+    border-color: #bfc8c4;
+
+    background: #f8faf9;
+}
+
+.table-search-container input:focus {
+    border-color: #20a84f;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(32, 168, 79, .10);
+}
+
+
+/* =========================================================
+   TABLE DATA AKUN
+========================================================= */
+
+.table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+
+    border-radius: 12px;
+}
+
+.table-wrapper table {
+    width: 100%;
+
+    border-collapse: collapse;
+}
+
+.table-wrapper thead {
+    background: #f7f9f8;
+}
+
+.table-wrapper th,
+.table-wrapper td {
+    padding: 14px;
+
+    text-align: left;
+
+    font-size: 11.5px;
+
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.table-wrapper th {
+    color: #888;
+
+    font-weight: 700;
+    font-size: 10px;
+
+    letter-spacing: .5px;
+    text-transform: uppercase;
+}
+
+.table-wrapper th:first-child {
+    border-top-left-radius: 10px;
+}
+
+.table-wrapper th:last-child {
+    border-top-right-radius: 10px;
+}
+
+.table-wrapper tbody tr {
+    transition:
+        background .15s ease;
+}
+
+.table-wrapper tbody tr:hover {
+    background: #fafcfb;
+}
+
+.table-wrapper tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   NOMOR DATA
+========================================================= */
+
+.account-number {
+    width: 50px;
+
+    color: #888;
+
+    font-size: 11px;
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   PLATFORM CHIP
+========================================================= */
+
+.platform-chip {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 6px 13px 6px 10px;
+
+    border: 1px solid transparent;
+    border-radius: 8px;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    letter-spacing: .1px;
+
+    white-space: nowrap;
+}
+
+.platform-chip i {
+    width: 14px;
+
+    font-size: 11px;
+
+    text-align: center;
+}
+
+
+/* INSTAGRAM */
+
+.chip-instagram {
+    background: rgba(214, 36, 159, .08);
+    color: #b81c85;
+
+    border-color:
+        rgba(214, 36, 159, .15);
+}
+
+
+/* FACEBOOK */
+
+.chip-facebook {
+    background: rgba(24, 119, 242, .08);
+    color: #1877f2;
+
+    border-color:
+        rgba(24, 119, 242, .15);
+}
+
+
+/* TIKTOK */
+
+.chip-tiktok {
+    background: rgba(17, 17, 17, .06);
+    color: #111111;
+
+    border-color:
+        rgba(17, 17, 17, .12);
+}
+
+
+/* YOUTUBE */
+
+.chip-youtube {
+    background: rgba(255, 0, 0, .08);
+    color: #d90000;
+
+    border-color:
+        rgba(255, 0, 0, .15);
+}
+
+
+/* =========================================================
+   NAMA AKUN
+========================================================= */
+
+.account-cell {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
+.account-cell > i {
+    width: 30px;
+    height: 30px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background:
+        rgba(33, 136, 56, .07);
+
+    color:
+        var(--primary-green, #218838);
+
+    font-size: 13px;
+}
+
+.account-cell strong {
+    color:
+        var(--text-dark, #333);
+
+    font-size: 11.5px;
+    font-weight: 600;
+
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   ACTION BUTTON
+========================================================= */
+
+.action-buttons {
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+}
+
+.btn-edit,
+.btn-delete {
+    width: 32px;
+    height: 32px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-size: 11.5px;
+
+    transition:
+        background .2s ease,
+        color .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+
+/* EDIT */
+
+.btn-edit {
+    background: #fff4d6;
+    color: #a5760a;
+}
+
+.btn-edit:hover {
+    background: #ffe08a;
+    color: #8a5f06;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 14px rgba(165, 118, 10, .25);
+}
+
+
+/* DELETE */
+
+.btn-delete {
+    background: #fde4e4;
+    color: #c62828;
+}
+
+.btn-delete:hover {
+    background: #f9baba;
+    color: #a11d1d;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 14px rgba(198, 40, 40, .22);
+}
+
+.btn-edit:active,
+.btn-delete:active {
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   EMPTY DATA
+========================================================= */
+
+.empty {
+    padding: 45px 20px !important;
+
+    text-align: center !important;
+
+    color: #999 !important;
+
+    font-size: 12px !important;
+}
+
+.empty i {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: #b7bdb9;
+
+    font-size: 24px;
+}
+
+.empty span {
+    display: block;
+}
+
+
+/* =========================================================
+   MODAL DATA AKUN
+========================================================= */
+
+.profile-modal {
+    position: fixed;
+    inset: 0;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(15, 26, 23, 0.55);
+
+    z-index: 9999;
+
+    box-sizing: border-box;
+}
+
+.profile-modal.show {
+    display: flex;
+}
+
+.profile-modal-content {
+    position: relative;
+
+    width: 100%;
+    max-width: 520px;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background: #ffffff;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, .20);
+
+    animation:
+        modalShow .2s ease;
+}
+
+
+@keyframes modalShow {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(-15px)
+            scale(.98);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+
+}
+
+
+/* =========================================================
+   MODAL HEADER
+========================================================= */
+
+.profile-modal-header {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 13px;
+
+    padding: 22px 24px;
+
+    border-bottom:
+        1px solid #eeeeee;
+}
+
+.profile-modal-icon {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+    background:
+        rgba(33, 136, 56, .08);
+
+    color:
+        var(--primary-green, #218838);
+
+    font-size: 16px;
+}
+
+.profile-modal-header > div:last-child {
+    min-width: 0;
+}
+
+.profile-modal-header .subtitle {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color:
+        var(--primary-green, #218838);
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: .8px;
+}
+
+.profile-modal-header h2 {
+    margin: 0;
+
+    color: #1c1f1e;
+
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.profile-modal-header p {
+    margin: 5px 0 0;
+
+    color: #888;
+
+    font-size: 11.5px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   CLOSE MODAL
+========================================================= */
+
+.close-modal {
+    position: absolute;
+
+    top: 12px;
+    right: 14px;
+
+    width: 32px;
+    height: 32px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: #888;
+
+    font-size: 25px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    z-index: 2;
+
+    transition:
+        background .2s ease,
+        color .2s ease;
+}
+
+.close-modal:hover {
+    background:
+        rgba(33, 136, 56, .08);
+
+    color:
+        var(--primary-green, #218838);
+}
+
+
+/* =========================================================
+   FORM DATA AKUN
+========================================================= */
+
+.profile-form {
+    padding: 22px 24px 24px;
+}
+
+.profile-form .form-group {
+    margin-bottom: 17px;
+}
+
+.profile-form label {
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+
+    margin-bottom: 7px;
+
+    color: #333;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.profile-form label i {
+    color:
+        var(--primary-green, #218838);
+
+    font-size: 10px;
+}
+
+.profile-form input,
+.profile-form select {
+    width: 100%;
+    height: 42px;
+
+    padding: 0 12px;
+
+    border: 1px solid #dfe3e1;
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    outline: none;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+
+    color:
+        var(--text-dark, #333);
+
+    box-sizing: border-box;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+}
+
+.profile-form input::placeholder {
+    color: #a7adaa;
+}
+
+.profile-form input:hover,
+.profile-form select:hover {
+    border-color: #d0d7d3;
+
+    background: #fcfdfc;
+}
+
+.profile-form input:focus,
+.profile-form select:focus {
+    border-color:
+        var(--primary-green, #218838);
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(33, 136, 56, .08);
+}
+
+
+/* SELECT */
+
+.profile-form select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    padding-right: 38px;
+
+    cursor: pointer;
+
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6' fill='none'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23218838' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+
+    background-repeat: no-repeat;
+
+    background-position:
+        right 14px center;
+
+    background-size:
+        10px 6px;
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.message {
+    display: none;
+
+    margin-bottom: 16px;
+
+    padding: 12px 15px;
+
+    border-radius: 10px;
+
+    font-size: 11.5px;
+    font-weight: 500;
+}
+
+.message.show {
+    display: block;
+}
+
+.message.success {
+    background: #e9f8ee;
+    color: #176b3a;
+}
+
+.message.error {
+    background: #fdecec;
+    color: #c62828;
+}
+
+
+/* =========================================================
+   FORM ACTION
+========================================================= */
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 22px;
+}
+
+.btn-save,
+.btn-cancel {
+    border: none;
+    border-radius: 8px;
+
+    padding: 10px 18px;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    transition:
+        background .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+
+/* SAVE */
+
+.btn-save {
+    background: #218838;
+    color: #ffffff;
+}
+
+.btn-save:hover {
+    background: #1e7e34;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 6px 14px rgba(33, 136, 56, .18);
+}
+
+
+/* CANCEL */
+
+.btn-cancel {
+    background: #eeeeee;
+    color: #555;
+}
+
+.btn-cancel:hover {
+    background: #e2e2e2;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .content-filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .table-search-container {
+        width: 100%;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .panel-header {
+        flex-wrap: wrap;
+    }
+
+    .panel-header-left {
+        width: 100%;
+    }
+
+    .btn-add-data {
+        margin-left: 0;
+    }
+
+    .platform-filter {
+        gap: 8px;
+    }
+
+    .filter-tab {
+        flex: 0 0 auto;
+    }
+
+    .table-search-container {
+        width: 100%;
+    }
+
+}
+
+
+@media (max-width: 560px) {
+
+    .panel-header-left {
+        align-items: flex-start;
+    }
+
+    .panel-header h2 {
+        font-size: 16px;
+    }
+
+    .platform-filter {
+        width: 100%;
+    }
+
+    .filter-tab {
+        padding: 0 11px;
+
+        font-size: 10px;
+    }
+
+    .table-wrapper th,
+    .table-wrapper td {
+        padding: 12px 10px;
+
+        font-size: 10.5px;
+    }
+
+    .profile-modal {
+        padding: 12px;
+    }
+
+    .profile-modal-header {
+        padding: 20px 18px;
+    }
+
+    .profile-form {
+        padding: 20px 18px;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+    }
+
+    .btn-save,
+    .btn-cancel {
+        width: 100%;
+    }
+
+}
+
+
+@media (max-width: 400px) {
+
+    .filter-tab {
+        height: 32px;
+
+        padding: 0 10px;
+
+        font-size: 9.5px;
+    }
+
+    .filter-count {
+        min-width: 18px;
+        height: 17px;
+
+        margin-left: 5px;
+
+        font-size: 8px;
+    }
+
+    .platform-chip {
+        padding: 5px 9px;
+
+        font-size: 9px;
+    }
+
+}
