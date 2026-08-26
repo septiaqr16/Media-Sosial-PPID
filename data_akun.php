@@ -8,6 +8,156 @@ if (!isset($_SESSION['admin_id'])) {
 
 require_once 'database.php';
 
+
+/*
+|--------------------------------------------------------------------------
+| AJAX CRUD DATA AKUN
+|--------------------------------------------------------------------------
+*/
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $action = trim($_POST['action'] ?? '');
+
+    if ($action === 'save_account') {
+
+        header('Content-Type: application/json; charset=UTF-8');
+
+        $id = (int) ($_POST['id'] ?? 0);
+        $platform = strtoupper(trim($_POST['platform'] ?? ''));
+        $namaAkun = trim($_POST['nama_akun'] ?? '');
+
+        $allowedPlatforms = [
+            'INSTAGRAM',
+            'FACEBOOK',
+            'TIKTOK',
+            'YOUTUBE'
+        ];
+
+        if (!in_array($platform, $allowedPlatforms, true)) {
+            echo json_encode([
+                'success' => false,
+                'message' => 'Platform tidak valid.'
+            ]);
+            exit;
+        }
+
+        if ($namaAkun === '') {
+            echo json_encode([
+                'success' => false,
+                'message' => 'Nama akun wajib diisi.'
+            ]);
+            exit;
+        }
+
+        try {
+            if ($id > 0) {
+                $stmt = $pdo->prepare(''
+                    . 'UPDATE akun_sosmed '
+                    . 'SET platform = ?, nama_akun = ? '
+                    . 'WHERE id = ?'
+                );
+
+                $stmt->execute([
+                    $platform,
+                    $namaAkun,
+                    $id
+                ]);
+
+                echo json_encode([
+                    'success' => true,
+                    'message' => 'Data akun berhasil diperbarui.'
+                ]);
+                exit;
+            }
+
+            $stmt = $pdo->prepare(''
+                . 'INSERT INTO akun_sosmed '
+                . '(platform, nama_akun) '
+                . 'VALUES (?, ?)'
+            );
+
+            $stmt->execute([
+                $platform,
+                $namaAkun
+            ]);
+
+            echo json_encode([
+                'success' => true,
+                'message' => 'Akun baru berhasil ditambahkan.'
+            ]);
+            exit;
+
+        } catch (PDOException $e) {
+            echo json_encode([
+                'success' => false,
+                'message' => 'Gagal menyimpan data akun. Periksa struktur tabel atau data yang dimasukkan.'
+            ]);
+            exit;
+        }
+    }
+
+
+    if ($action === 'delete_account') {
+
+        header('Content-Type: application/json; charset=UTF-8');
+
+        $id = (int) ($_POST['id'] ?? 0);
+
+        if ($id <= 0) {
+            echo json_encode([
+                'success' => false,
+                'message' => 'ID akun tidak valid.'
+            ]);
+            exit;
+        }
+
+        try {
+            /*
+             * Jangan menghapus akun yang masih dipakai oleh
+             * data konten atau data follower.
+             */
+            $stmt = $pdo->prepare(
+                'SELECT COUNT(*) FROM konten_sosmed WHERE akun_id = ?'
+            );
+            $stmt->execute([$id]);
+            $jumlahKonten = (int) $stmt->fetchColumn();
+
+            $stmt = $pdo->prepare(
+                'SELECT COUNT(*) FROM follower_sosmed WHERE id_akun = ?'
+            );
+            $stmt->execute([$id]);
+            $jumlahFollower = (int) $stmt->fetchColumn();
+
+            if ($jumlahKonten > 0 || $jumlahFollower > 0) {
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Akun tidak dapat dihapus karena masih memiliki data konten atau follower yang terhubung.'
+                ]);
+                exit;
+            }
+
+            $stmt = $pdo->prepare(
+                'DELETE FROM akun_sosmed WHERE id = ?'
+            );
+            $stmt->execute([$id]);
+
+            echo json_encode([
+                'success' => true,
+                'message' => 'Akun berhasil dihapus.'
+            ]);
+            exit;
+
+        } catch (PDOException $e) {
+            echo json_encode([
+                'success' => false,
+                'message' => 'Gagal menghapus akun.'
+            ]);
+            exit;
+        }
+    }
+}
+
 /*
 |--------------------------------------------------------------------------
 | DATA AKUN SOSIAL MEDIA
@@ -1067,7 +1217,7 @@ $platformMeta = [
      JAVASCRIPT
 ========================================================= -->
 
-<script src="js/data_akun.js"></script>
+<script src="js/data_akun.js?v=20260826"></script>
 
 
 </body>

@@ -1214,4 +1214,31 @@
         font-size: 9px;
     }
 
+/* =========================================================
+   FIX FILTER DATA AKUN
+========================================================= */
+
+.content-filter-bar {
+    position: relative !important;
+    z-index: 100 !important;
+    pointer-events: auto !important;
+}
+
+.platform-filter {
+    position: relative !important;
+    z-index: 101 !important;
+    pointer-events: auto !important;
+}
+
+.filter-tab {
+    position: relative !important;
+    z-index: 102 !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+}
+
+.filter-tab i,
+.filter-tab .filter-count {
+    pointer-events: none !important;
+}
 }
